@@ -5,7 +5,6 @@
 	},
 	"id": "skyline.click-indicator",
 	"name": "Click Indicator",
-<<<<<<< HEAD
 	"version": "v1.1.0",
 	"developer": "Skyline",
 	"description": "Shows your own images while you click or hold, so you don't need a handcam. Works with macros and bots.",
@@ -15,14 +14,6 @@
 		"sprites": [
 			"resources/default-idle.png",
 			"resources/default-pressed.png"
-=======
-	"version": "v1.0.0",
-	"developer": "Skyline",
-	"description": "Shows your own image in the corner while you click or hold, so you don't need a handcam.",
-	"resources": {
-		"sprites": [
-			"resources/*.png"
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
 		]
 	},
 	"settings": {
@@ -32,7 +23,6 @@
 			"description": "Show the click indicator in levels.",
 			"default": true
 		},
-<<<<<<< HEAD
 		"idle-image": {
 			"type": "file",
 			"name": "Idle image",
@@ -70,14 +60,6 @@
 			"description": "Height of the image as a percentage of the screen height.",
 			"default": 20.0,
 			"min": 2.0,
-=======
-		"size": {
-			"type": "float",
-			"name": "Size",
-			"description": "Height of the indicator as a percentage of the screen height. Applies the next time you enter a level.",
-			"default": 35.0,
-			"min": 5.0,
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
 			"max": 100.0,
 			"control": {
 				"arrows": true,
@@ -89,7 +71,6 @@
 				"input": true
 			}
 		},
-<<<<<<< HEAD
 		"margin-x": {
 			"type": "float",
 			"name": "Horizontal margin",
@@ -119,20 +100,6 @@
 				"arrow-step": 0.5,
 				"big-arrows": true,
 				"big-arrow-step": 5.0,
-=======
-		"margin": {
-			"type": "float",
-			"name": "Margin",
-			"description": "Gap from the bottom-right corner, as a percentage of the screen height. Applies the next time you enter a level.",
-			"default": 2.0,
-			"min": 0.0,
-			"max": 20.0,
-			"control": {
-				"arrows": true,
-				"arrow-step": 0.5,
-				"big-arrows": false,
-				"big-arrow-step": 2.0,
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
 				"slider": true,
 				"slider-step": 0.5,
 				"input": true
@@ -141,15 +108,9 @@
 		"opacity": {
 			"type": "int",
 			"name": "Opacity",
-<<<<<<< HEAD
 			"description": "How see-through the indicator is, in percent.",
 			"default": 100,
 			"min": 5,
-=======
-			"description": "Opacity of the indicator in percent. Applies the next time you enter a level.",
-			"default": 100,
-			"min": 10,
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
 			"max": 100,
 			"control": {
 				"arrows": true,
@@ -160,7 +121,6 @@
 				"slider-step": 5,
 				"input": true
 			}
-<<<<<<< HEAD
 		},
 		"pressed-scale": {
 			"type": "float",
@@ -209,8 +169,6 @@
 			"name": "Count left/right (platformer)",
 			"description": "In platformer levels, also treat holding left or right as clicking.",
 			"default": false
-=======
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
 		}
 	}
 }

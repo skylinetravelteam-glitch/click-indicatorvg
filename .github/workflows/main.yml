@@ -12,10 +12,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-<<<<<<< HEAD
 
-=======
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
       - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
         with:
@@ -28,10 +25,7 @@ jobs:
     steps:
       - uses: geode-sdk/build-geode-mod/combine@main
         id: build
-<<<<<<< HEAD
 
-=======
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
       - uses: actions/upload-artifact@v4
         with:
           name: Build Output

@@ -1,5 +1,4 @@
 #include <Geode/Geode.hpp>
-<<<<<<< HEAD
 #include <Geode/loader/SettingV3.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 #include <Geode/modify/PlayerObject.hpp>
@@ -156,34 +155,16 @@ class $modify(CIPlayLayer, PlayLayer) {
         uint8_t p1Mask = 0; // bit 0 = jump, bit 1 = left, bit 2 = right
         uint8_t p2Mask = 0;
         CCSize lastWin = {0.f, 0.f};
-=======
-#include <Geode/modify/PlayLayer.hpp>
-#include <Geode/modify/GJBaseGameLayer.hpp>
-
-using namespace geode::prelude;
-
-class $modify(CIPlayLayer, PlayLayer) {
-    struct Fields {
-        CCSprite* idle = nullptr;
-        CCSprite* pressed = nullptr;
-        bool p1Down = false;
-        bool p2Down = false;
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
     };
 
     bool init(GJGameLevel* level, bool useReplay, bool dontCreateObjects) {
         if (!PlayLayer::init(level, useReplay, dontCreateObjects)) return false;
-<<<<<<< HEAD
         this->rebuildIndicator();
-=======
-        this->buildIndicator();
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
         return true;
     }
 
     void resetLevel() {
         PlayLayer::resetLevel();
-<<<<<<< HEAD
         // A button can look "held" across a death / restart; start clean.
         auto f = m_fields.self();
         f->p1Mask = 0;
@@ -242,52 +223,12 @@ class $modify(CIPlayLayer, PlayLayer) {
         f->pressed = pressed.spr;
         f->lastWin = win;
 
-=======
-        auto f = m_fields.self();
-        f->p1Down = false;
-        f->p2Down = false;
-        this->refreshIndicator();
-    }
-
-    void buildIndicator() {
-        auto mod = Mod::get();
-        if (!mod->getSettingValue<bool>("enabled")) return;
-
-        auto idle = CCSprite::create("image1.png"_spr);
-        auto pressed = CCSprite::create("image2.png"_spr);
-        if (!idle || !pressed) {
-            log::error("Click Indicator: couldn't load image1.png / image2.png from the mod's resources.");
-            return;
-        }
-
-        auto winSize = CCDirector::get()->getWinSize();
-        float sizePct = static_cast<float>(mod->getSettingValue<double>("size"));
-        float marginPct = static_cast<float>(mod->getSettingValue<double>("margin"));
-        float opacityPct = static_cast<float>(mod->getSettingValue<int64_t>("opacity"));
-
-        float targetHeight = winSize.height * sizePct / 100.f;
-        float margin = winSize.height * marginPct / 100.f;
-
-        for (auto spr : {idle, pressed}) {
-            float scale = targetHeight / idle->getContentSize().height;
-            spr->setScale(scale);
-            spr->setAnchorPoint({1.f, 0.f});
-            spr->setPosition({winSize.width - margin, margin});
-            spr->setOpacity(static_cast<GLubyte>(255.f * opacityPct / 100.f));
-            this->addChild(spr, 1000);
-        }
-
-        auto f = m_fields.self();
-        f->idle = idle;
-        f->pressed = pressed;
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
         this->refreshIndicator();
     }
 
     void refreshIndicator() {
         auto f = m_fields.self();
         if (!f->idle || !f->pressed) return;
-<<<<<<< HEAD
 
         auto mod = Mod::get();
         bool anyButton = mod->getSettingValue<bool>("platformer-buttons");
@@ -324,22 +265,10 @@ class $modify(CIPlayLayer, PlayLayer) {
         if (down) mask = static_cast<uint8_t>(mask | bit);
         else mask = static_cast<uint8_t>(mask & ~bit);
 
-=======
-        bool down = f->p1Down || f->p2Down;
-        f->idle->setVisible(!down);
-        f->pressed->setVisible(down);
-    }
-
-    void setButtonState(bool down, bool isPlayer1) {
-        auto f = m_fields.self();
-        if (isPlayer1) f->p1Down = down;
-        else f->p2Down = down;
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
         this->refreshIndicator();
     }
 };
 
-<<<<<<< HEAD
 namespace {
     void notifyFromPlayer(PlayerObject* player, int button, bool down) {
         auto pl = PlayLayer::get();
@@ -376,13 +305,10 @@ class $modify(CIPlayerObject, PlayerObject) {
 };
 
 // Second path: the game's own input handler (bots usually go through this too).
-=======
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2
 class $modify(CIBaseGameLayer, GJBaseGameLayer) {
     void handleButton(bool down, int button, bool isPlayer1) {
         GJBaseGameLayer::handleButton(down, button, isPlayer1);
 
-<<<<<<< HEAD
         auto pl = PlayLayer::get();
         if (!pl || static_cast<GJBaseGameLayer*>(pl) != this) return;
 
@@ -407,12 +333,3 @@ $on_mod(Loaded) {
     listenForSettingChanges("track", [](std::string) { rebuildLive(); });
     listenForSettingChanges("platformer-buttons", [](bool) { rebuildLive(); });
 }
-=======
-        if (button != 1) return;
-
-        if (auto pl = PlayLayer::get()) {
-            static_cast<CIPlayLayer*>(pl)->setButtonState(down, isPlayer1);
-        }
-    }
-};
->>>>>>> bfe1836c50738d2d072075770b22a0561153ebc2

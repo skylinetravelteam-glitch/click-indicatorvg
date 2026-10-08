@@ -1,0 +1,174 @@
+{
+	"geode": "5.10.1",
+	"gd": {
+		"win": "2.2081"
+	},
+	"id": "skyline.click-indicator",
+	"name": "Click Indicator",
+	"version": "v1.1.0",
+	"developer": "Skyline",
+	"description": "Shows your own images while you click or hold, so you don't need a handcam. Works with macros and bots.",
+	"repository": "https://github.com/skylinetravelteam-glitch/click-indicatorvg",
+	"tags": ["customization", "utility"],
+	"resources": {
+		"sprites": [
+			"resources/default-idle.png",
+			"resources/default-pressed.png"
+		]
+	},
+	"settings": {
+		"enabled": {
+			"type": "bool",
+			"name": "Enabled",
+			"description": "Show the click indicator in levels.",
+			"default": true
+		},
+		"idle-image": {
+			"type": "file",
+			"name": "Idle image",
+			"description": "Image shown while you are <cy>not</c> clicking. Leave empty for the built-in image. PNG recommended (transparent edges are cropped automatically).",
+			"default": "",
+			"control": {
+				"dialog": "open",
+				"filters": [
+					{ "files": ["*.png", "*.jpg", "*.jpeg"], "description": "Images" }
+				]
+			}
+		},
+		"pressed-image": {
+			"type": "file",
+			"name": "Clicking image",
+			"description": "Image shown while you <cg>are</c> clicking or holding. Leave empty for the built-in image.",
+			"default": "",
+			"control": {
+				"dialog": "open",
+				"filters": [
+					{ "files": ["*.png", "*.jpg", "*.jpeg"], "description": "Images" }
+				]
+			}
+		},
+		"corner": {
+			"type": "string",
+			"name": "Corner",
+			"description": "Which corner of the screen the indicator sits in.",
+			"default": "Bottom Right",
+			"one-of": ["Bottom Right", "Bottom Left", "Top Right", "Top Left"]
+		},
+		"size": {
+			"type": "float",
+			"name": "Size",
+			"description": "Height of the image as a percentage of the screen height.",
+			"default": 20.0,
+			"min": 2.0,
+			"max": 100.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 1.0,
+				"big-arrows": true,
+				"big-arrow-step": 5.0,
+				"slider": true,
+				"slider-step": 1.0,
+				"input": true
+			}
+		},
+		"margin-x": {
+			"type": "float",
+			"name": "Horizontal margin",
+			"description": "Distance from the left/right edge, as a percentage of the screen height. Negative values push it off the edge.",
+			"default": 1.5,
+			"min": -50.0,
+			"max": 50.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 0.5,
+				"big-arrows": true,
+				"big-arrow-step": 5.0,
+				"slider": true,
+				"slider-step": 0.5,
+				"input": true
+			}
+		},
+		"margin-y": {
+			"type": "float",
+			"name": "Vertical margin",
+			"description": "Distance from the top/bottom edge, as a percentage of the screen height. Negative values push it off the edge.",
+			"default": 1.5,
+			"min": -50.0,
+			"max": 50.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 0.5,
+				"big-arrows": true,
+				"big-arrow-step": 5.0,
+				"slider": true,
+				"slider-step": 0.5,
+				"input": true
+			}
+		},
+		"opacity": {
+			"type": "int",
+			"name": "Opacity",
+			"description": "How see-through the indicator is, in percent.",
+			"default": 100,
+			"min": 5,
+			"max": 100,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5,
+				"big-arrows": false,
+				"big-arrow-step": 10,
+				"slider": true,
+				"slider-step": 5,
+				"input": true
+			}
+		},
+		"pressed-scale": {
+			"type": "float",
+			"name": "Clicking image scale",
+			"description": "Makes the clicking image bigger or smaller than the idle one (1.0 = same size). Handy for a little 'pop' when you click.",
+			"default": 1.0,
+			"min": 0.5,
+			"max": 2.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 0.05,
+				"big-arrows": false,
+				"big-arrow-step": 0.25,
+				"slider": true,
+				"slider-step": 0.05,
+				"input": true
+			}
+		},
+		"trim": {
+			"type": "bool",
+			"name": "Crop transparent edges",
+			"description": "Automatically ignores empty transparent space around PNG images, so the picture sits right in the corner.",
+			"default": true
+		},
+		"flip": {
+			"type": "bool",
+			"name": "Flip horizontally",
+			"description": "Mirror both images left-to-right.",
+			"default": false
+		},
+		"hide-idle": {
+			"type": "bool",
+			"name": "Only show while clicking",
+			"description": "Hide the idle image completely, so the indicator only appears while you click or hold.",
+			"default": false
+		},
+		"track": {
+			"type": "string",
+			"name": "Track",
+			"description": "Which player's clicks to show in 2-player / dual levels.",
+			"default": "Both players",
+			"one-of": ["Both players", "Player 1 only", "Player 2 only"]
+		},
+		"platformer-buttons": {
+			"type": "bool",
+			"name": "Count left/right (platformer)",
+			"description": "In platformer levels, also treat holding left or right as clicking.",
+			"default": false
+		}
+	}
+}

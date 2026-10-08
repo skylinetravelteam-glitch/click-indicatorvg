@@ -318,18 +318,18 @@ class $modify(CIBaseGameLayer, GJBaseGameLayer) {
 
 // Changing a setting from the pause menu updates the indicator instantly.
 $on_mod(Loaded) {
-    listenForSettingChanges("enabled", [](bool) { rebuildLive(); });
-    listenForSettingChanges("idle-image", [](std::filesystem::path) { rebuildLive(); });
-    listenForSettingChanges("pressed-image", [](std::filesystem::path) { rebuildLive(); });
-    listenForSettingChanges("trim", [](bool) { rebuildLive(); });
-    listenForSettingChanges("corner", [](std::string) { rebuildLive(); });
-    listenForSettingChanges("size", [](double) { rebuildLive(); });
-    listenForSettingChanges("margin-x", [](double) { rebuildLive(); });
-    listenForSettingChanges("margin-y", [](double) { rebuildLive(); });
-    listenForSettingChanges("opacity", [](int64_t) { rebuildLive(); });
-    listenForSettingChanges("pressed-scale", [](double) { rebuildLive(); });
-    listenForSettingChanges("flip", [](bool) { rebuildLive(); });
-    listenForSettingChanges("hide-idle", [](bool) { rebuildLive(); });
-    listenForSettingChanges("track", [](std::string) { rebuildLive(); });
-    listenForSettingChanges("platformer-buttons", [](bool) { rebuildLive(); });
+    listenForSettingChanges<bool>("enabled", [](bool) { rebuildLive(); });
+    listenForSettingChanges<std::filesystem::path>("idle-image", [](std::filesystem::path) { rebuildLive(); });
+    listenForSettingChanges<std::filesystem::path>("pressed-image", [](std::filesystem::path) { rebuildLive(); });
+    listenForSettingChanges<bool>("trim", [](bool) { rebuildLive(); });
+    listenForSettingChanges<std::string>("corner", [](std::string) { rebuildLive(); });
+    listenForSettingChanges<double>("size", [](double) { rebuildLive(); });
+    listenForSettingChanges<double>("margin-x", [](double) { rebuildLive(); });
+    listenForSettingChanges<double>("margin-y", [](double) { rebuildLive(); });
+    listenForSettingChanges<int64_t>("opacity", [](int64_t) { rebuildLive(); });
+    listenForSettingChanges<double>("pressed-scale", [](double) { rebuildLive(); });
+    listenForSettingChanges<bool>("flip", [](bool) { rebuildLive(); });
+    listenForSettingChanges<bool>("hide-idle", [](bool) { rebuildLive(); });
+    listenForSettingChanges<std::string>("track", [](std::string) { rebuildLive(); });
+    listenForSettingChanges<bool>("platformer-buttons", [](bool) { rebuildLive(); });
 }

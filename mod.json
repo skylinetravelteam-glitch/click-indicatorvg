@@ -1,0 +1,75 @@
+{
+	"geode": "v5.10.1",
+	"gd": {
+		"win": "2.2081"
+	},
+	"id": "skyline.click-indicator",
+	"name": "Click Indicator",
+	"version": "v1.0.0",
+	"developer": "Skyline",
+	"description": "Shows your own image in the corner while you click or hold, so you don't need a handcam.",
+	"resources": {
+		"sprites": [
+			"resources/*.png"
+		]
+	},
+	"settings": {
+		"enabled": {
+			"type": "bool",
+			"name": "Enabled",
+			"description": "Show the click indicator in levels.",
+			"default": true
+		},
+		"size": {
+			"type": "float",
+			"name": "Size",
+			"description": "Height of the indicator as a percentage of the screen height. Applies the next time you enter a level.",
+			"default": 35.0,
+			"min": 5.0,
+			"max": 100.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 1.0,
+				"big-arrows": true,
+				"big-arrow-step": 5.0,
+				"slider": true,
+				"slider-step": 1.0,
+				"input": true
+			}
+		},
+		"margin": {
+			"type": "float",
+			"name": "Margin",
+			"description": "Gap from the bottom-right corner, as a percentage of the screen height. Applies the next time you enter a level.",
+			"default": 2.0,
+			"min": 0.0,
+			"max": 20.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 0.5,
+				"big-arrows": false,
+				"big-arrow-step": 2.0,
+				"slider": true,
+				"slider-step": 0.5,
+				"input": true
+			}
+		},
+		"opacity": {
+			"type": "int",
+			"name": "Opacity",
+			"description": "Opacity of the indicator in percent. Applies the next time you enter a level.",
+			"default": 100,
+			"min": 10,
+			"max": 100,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5,
+				"big-arrows": false,
+				"big-arrow-step": 10,
+				"slider": true,
+				"slider-step": 5,
+				"input": true
+			}
+		}
+	}
+}

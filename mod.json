@@ -5,54 +5,158 @@
 	},
 	"id": "skyline.click-indicator",
 	"name": "Click Indicator",
-	"version": "v1.1.0",
+	"version": "v1.2.0",
 	"developer": "Skyline",
-	"description": "Shows your own images while you click or hold, so you don't need a handcam. Works with macros and bots.",
+	"description": "A handcam replacement: shows your own images while you click or hold. Works with macros and bots.",
 	"repository": "https://github.com/skylinetravelteam-glitch/click-indicatorvg",
-	"tags": ["customization", "utility"],
+	"tags": [
+		"customization",
+		"utility"
+	],
 	"resources": {
 		"sprites": [
-			"resources/default-idle.png",
-			"resources/default-pressed.png"
+			"resources/ripple.png",
+			"resources/skin-mouse-idle.png",
+			"resources/skin-mouse-pressed.png",
+			"resources/skin-spacebar-idle.png",
+			"resources/skin-spacebar-pressed.png",
+			"resources/skin-gamepad-idle.png",
+			"resources/skin-gamepad-pressed.png",
+			"resources/skin-dot-idle.png",
+			"resources/skin-dot-pressed.png",
+			"resources/skin-arrow-idle.png",
+			"resources/skin-arrow-pressed.png"
 		]
 	},
 	"settings": {
+		"t-general": {
+			"type": "title",
+			"name": "General"
+		},
 		"enabled": {
 			"type": "bool",
 			"name": "Enabled",
 			"description": "Show the click indicator in levels.",
 			"default": true
 		},
+		"show-in": {
+			"type": "string",
+			"name": "Show in",
+			"description": "Which kinds of levels show the indicator.",
+			"default": "All levels",
+			"one-of": [
+				"All levels",
+				"Classic levels only",
+				"Platformer levels only"
+			]
+		},
+		"hide-idle": {
+			"type": "bool",
+			"name": "Only show while clicking",
+			"description": "Hide the idle image completely, so the indicator only appears while you click or hold.",
+			"default": false
+		},
+		"t-images": {
+			"type": "title",
+			"name": "Images",
+			"description": "Leave the image pickers empty to use the built-in skin."
+		},
+		"skin": {
+			"type": "string",
+			"name": "Built-in skin",
+			"description": "Which built-in pictures to use when you haven't picked your own.",
+			"default": "Mouse",
+			"one-of": [
+				"Mouse",
+				"Spacebar",
+				"Gamepad",
+				"Dot",
+				"Arrow key"
+			]
+		},
 		"idle-image": {
 			"type": "file",
 			"name": "Idle image",
-			"description": "Image shown while you are <cy>not</c> clicking. Leave empty for the built-in image. PNG recommended (transparent edges are cropped automatically).",
+			"description": "Shown while you are NOT clicking. PNG recommended (transparent edges are cropped automatically).",
 			"default": "",
 			"control": {
 				"dialog": "open",
 				"filters": [
-					{ "files": ["*.png", "*.jpg", "*.jpeg"], "description": "Images" }
+					{
+						"files": [
+							"*.png",
+							"*.jpg",
+							"*.jpeg"
+						],
+						"description": "Images"
+					}
 				]
 			}
 		},
 		"pressed-image": {
 			"type": "file",
 			"name": "Clicking image",
-			"description": "Image shown while you <cg>are</c> clicking or holding. Leave empty for the built-in image.",
+			"description": "Shown while you ARE clicking or holding.",
 			"default": "",
 			"control": {
 				"dialog": "open",
 				"filters": [
-					{ "files": ["*.png", "*.jpg", "*.jpeg"], "description": "Images" }
+					{
+						"files": [
+							"*.png",
+							"*.jpg",
+							"*.jpeg"
+						],
+						"description": "Images"
+					}
 				]
 			}
 		},
-		"corner": {
+		"hold-image": {
+			"type": "file",
+			"name": "Long-hold image (optional)",
+			"description": "If set, this replaces the clicking image once you've held for the 'Long-hold after' time. Leave empty to disable.",
+			"default": "",
+			"control": {
+				"dialog": "open",
+				"filters": [
+					{
+						"files": [
+							"*.png",
+							"*.jpg",
+							"*.jpeg"
+						],
+						"description": "Images"
+					}
+				]
+			}
+		},
+		"trim": {
+			"type": "bool",
+			"name": "Crop transparent edges",
+			"description": "Ignore empty transparent space around PNG images, so the picture sits exactly where you put it.",
+			"default": true
+		},
+		"t-position": {
+			"type": "title",
+			"name": "Position and size"
+		},
+		"position": {
 			"type": "string",
-			"name": "Corner",
-			"description": "Which corner of the screen the indicator sits in.",
+			"name": "Position",
+			"description": "Where on the screen the indicator sits.",
 			"default": "Bottom Right",
-			"one-of": ["Bottom Right", "Bottom Left", "Top Right", "Top Left"]
+			"one-of": [
+				"Bottom Right",
+				"Bottom Center",
+				"Bottom Left",
+				"Middle Right",
+				"Center",
+				"Middle Left",
+				"Top Right",
+				"Top Center",
+				"Top Left"
+			]
 		},
 		"size": {
 			"type": "float",
@@ -74,7 +178,7 @@
 		"margin-x": {
 			"type": "float",
 			"name": "Horizontal margin",
-			"description": "Distance from the left/right edge, as a percentage of the screen height. Negative values push it off the edge.",
+			"description": "Distance from the left/right edge (percent of screen height). Negative values push it off the edge. When centred, this nudges it right.",
 			"default": 1.5,
 			"min": -50.0,
 			"max": 50.0,
@@ -91,7 +195,7 @@
 		"margin-y": {
 			"type": "float",
 			"name": "Vertical margin",
-			"description": "Distance from the top/bottom edge, as a percentage of the screen height. Negative values push it off the edge.",
+			"description": "Distance from the top/bottom edge (percent of screen height). Negative values push it off the edge. When centred, this nudges it up.",
 			"default": 1.5,
 			"min": -50.0,
 			"max": 50.0,
@@ -105,70 +209,437 @@
 				"input": true
 			}
 		},
-		"opacity": {
-			"type": "int",
-			"name": "Opacity",
-			"description": "How see-through the indicator is, in percent.",
-			"default": 100,
-			"min": 5,
-			"max": 100,
-			"control": {
-				"arrows": true,
-				"arrow-step": 5,
-				"big-arrows": false,
-				"big-arrow-step": 10,
-				"slider": true,
-				"slider-step": 5,
-				"input": true
-			}
-		},
-		"pressed-scale": {
-			"type": "float",
-			"name": "Clicking image scale",
-			"description": "Makes the clicking image bigger or smaller than the idle one (1.0 = same size). Handy for a little 'pop' when you click.",
-			"default": 1.0,
-			"min": 0.5,
-			"max": 2.0,
-			"control": {
-				"arrows": true,
-				"arrow-step": 0.05,
-				"big-arrows": false,
-				"big-arrow-step": 0.25,
-				"slider": true,
-				"slider-step": 0.05,
-				"input": true
-			}
-		},
-		"trim": {
-			"type": "bool",
-			"name": "Crop transparent edges",
-			"description": "Automatically ignores empty transparent space around PNG images, so the picture sits right in the corner.",
-			"default": true
-		},
 		"flip": {
 			"type": "bool",
 			"name": "Flip horizontally",
 			"description": "Mirror both images left-to-right.",
 			"default": false
 		},
-		"hide-idle": {
+		"flip-vertical": {
 			"type": "bool",
-			"name": "Only show while clicking",
-			"description": "Hide the idle image completely, so the indicator only appears while you click or hold.",
+			"name": "Flip vertically",
+			"description": "Mirror both images upside-down.",
 			"default": false
+		},
+		"rotation": {
+			"type": "float",
+			"name": "Rotation",
+			"description": "Rotate the indicator, in degrees.",
+			"default": 0.0,
+			"min": -180.0,
+			"max": 180.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 1.0,
+				"big-arrows": true,
+				"big-arrow-step": 15.0,
+				"slider": true,
+				"slider-step": 1.0,
+				"input": true
+			}
+		},
+		"pressed-rotation": {
+			"type": "float",
+			"name": "Extra rotation while clicking",
+			"description": "Extra tilt, in degrees, added while you click.",
+			"default": 0.0,
+			"min": -90.0,
+			"max": 90.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 1.0,
+				"big-arrows": true,
+				"big-arrow-step": 10.0,
+				"slider": true,
+				"slider-step": 1.0,
+				"input": true
+			}
+		},
+		"pressed-scale": {
+			"type": "float",
+			"name": "Clicking image size",
+			"description": "Makes the clicking image bigger or smaller than the idle one (1.0 = same size).",
+			"default": 1.0,
+			"min": 0.5,
+			"max": 2.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 0.05,
+				"big-arrows": true,
+				"big-arrow-step": 0.25,
+				"slider": true,
+				"slider-step": 0.05,
+				"input": true
+			}
+		},
+		"t-look": {
+			"type": "title",
+			"name": "Appearance"
+		},
+		"idle-opacity": {
+			"type": "int",
+			"name": "Idle opacity",
+			"description": "How visible the idle image is, in percent.",
+			"default": 100,
+			"min": 0,
+			"max": 100,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5,
+				"big-arrows": true,
+				"big-arrow-step": 10,
+				"slider": true,
+				"slider-step": 5,
+				"input": true
+			}
+		},
+		"pressed-opacity": {
+			"type": "int",
+			"name": "Clicking opacity",
+			"description": "How visible the clicking image is, in percent.",
+			"default": 100,
+			"min": 5,
+			"max": 100,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5,
+				"big-arrows": true,
+				"big-arrow-step": 10,
+				"slider": true,
+				"slider-step": 5,
+				"input": true
+			}
+		},
+		"idle-tint": {
+			"type": "rgb",
+			"name": "Idle tint",
+			"description": "Colours the idle image. White = no change.",
+			"default": "#ffffff"
+		},
+		"pressed-tint": {
+			"type": "rgb",
+			"name": "Clicking tint",
+			"description": "Colours the clicking image. White = no change.",
+			"default": "#ffffff"
+		},
+		"backdrop": {
+			"type": "bool",
+			"name": "Backdrop",
+			"description": "Draw a coloured box behind the indicator so it's easy to see on any background.",
+			"default": false
+		},
+		"backdrop-color": {
+			"type": "rgb",
+			"name": "Backdrop colour",
+			"description": "Colour of the backdrop.",
+			"default": "#000000"
+		},
+		"backdrop-opacity": {
+			"type": "int",
+			"name": "Backdrop opacity",
+			"description": "How solid the backdrop is, in percent.",
+			"default": 50,
+			"min": 0,
+			"max": 100,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5,
+				"big-arrows": true,
+				"big-arrow-step": 10,
+				"slider": true,
+				"slider-step": 5,
+				"input": true
+			}
+		},
+		"backdrop-padding": {
+			"type": "float",
+			"name": "Backdrop padding",
+			"description": "Extra space around the image inside the backdrop (percent of screen height).",
+			"default": 1.0,
+			"min": 0.0,
+			"max": 20.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 0.5,
+				"big-arrows": true,
+				"big-arrow-step": 2.0,
+				"slider": true,
+				"slider-step": 0.5,
+				"input": true
+			}
+		},
+		"t-timing": {
+			"type": "title",
+			"name": "Timing",
+			"description": "Make clicks easier to see, or line them up with your recording."
+		},
+		"min-click-time": {
+			"type": "int",
+			"name": "Minimum click time (ms)",
+			"description": "Keeps the clicking image up for at least this long, so very fast taps can still be seen.",
+			"default": 60,
+			"min": 0,
+			"max": 1000,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5,
+				"big-arrows": true,
+				"big-arrow-step": 25,
+				"slider": true,
+				"slider-step": 5,
+				"input": true
+			}
+		},
+		"press-delay": {
+			"type": "int",
+			"name": "Press delay (ms)",
+			"description": "Waits this long before showing the clicking image. Use it to line up with a video that lags behind the game.",
+			"default": 0,
+			"min": 0,
+			"max": 1000,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5,
+				"big-arrows": true,
+				"big-arrow-step": 25,
+				"slider": true,
+				"slider-step": 5,
+				"input": true
+			}
+		},
+		"release-delay": {
+			"type": "int",
+			"name": "Release delay (ms)",
+			"description": "Keeps the clicking image up this long after you let go.",
+			"default": 0,
+			"min": 0,
+			"max": 1000,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5,
+				"big-arrows": true,
+				"big-arrow-step": 25,
+				"slider": true,
+				"slider-step": 5,
+				"input": true
+			}
+		},
+		"fade-time": {
+			"type": "int",
+			"name": "Fade time (ms)",
+			"description": "How long the swap between images takes. 0 = instant.",
+			"default": 30,
+			"min": 0,
+			"max": 500,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5,
+				"big-arrows": true,
+				"big-arrow-step": 25,
+				"slider": true,
+				"slider-step": 5,
+				"input": true
+			}
+		},
+		"hold-threshold": {
+			"type": "int",
+			"name": "Long-hold after (ms)",
+			"description": "How long you must hold before the long-hold image appears (only if you picked one).",
+			"default": 250,
+			"min": 50,
+			"max": 3000,
+			"control": {
+				"arrows": true,
+				"arrow-step": 10,
+				"big-arrows": true,
+				"big-arrow-step": 100,
+				"slider": true,
+				"slider-step": 10,
+				"input": true
+			}
+		},
+		"idle-timeout": {
+			"type": "float",
+			"name": "Hide idle image after (seconds)",
+			"description": "Fade the idle image out after this many seconds without clicking. 0 = never.",
+			"default": 0.0,
+			"min": 0.0,
+			"max": 60.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 0.5,
+				"big-arrows": true,
+				"big-arrow-step": 5.0,
+				"slider": true,
+				"slider-step": 0.5,
+				"input": true
+			}
+		},
+		"t-fx": {
+			"type": "title",
+			"name": "Effects"
+		},
+		"pop": {
+			"type": "float",
+			"name": "Click pop (%)",
+			"description": "The clicking image briefly swells by this much when you click. 0 = off.",
+			"default": 0.0,
+			"min": 0.0,
+			"max": 60.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 1.0,
+				"big-arrows": true,
+				"big-arrow-step": 5.0,
+				"slider": true,
+				"slider-step": 1.0,
+				"input": true
+			}
+		},
+		"ripple": {
+			"type": "bool",
+			"name": "Click ripple",
+			"description": "A ring expands and fades out every time you click.",
+			"default": false
+		},
+		"ripple-color": {
+			"type": "rgb",
+			"name": "Ripple colour",
+			"description": "Colour of the ripple ring.",
+			"default": "#ffffff"
+		},
+		"ripple-size": {
+			"type": "float",
+			"name": "Ripple size (%)",
+			"description": "How big the ripple ring grows, relative to the indicator.",
+			"default": 150.0,
+			"min": 50.0,
+			"max": 400.0,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5.0,
+				"big-arrows": true,
+				"big-arrow-step": 25.0,
+				"slider": true,
+				"slider-step": 5.0,
+				"input": true
+			}
+		},
+		"ripple-time": {
+			"type": "int",
+			"name": "Ripple duration (ms)",
+			"description": "How long the ripple lasts.",
+			"default": 350,
+			"min": 100,
+			"max": 2000,
+			"control": {
+				"arrows": true,
+				"arrow-step": 10,
+				"big-arrows": true,
+				"big-arrow-step": 100,
+				"slider": true,
+				"slider-step": 10,
+				"input": true
+			}
+		},
+		"ripple-opacity": {
+			"type": "int",
+			"name": "Ripple opacity",
+			"description": "How visible the ripple starts out, in percent.",
+			"default": 60,
+			"min": 5,
+			"max": 100,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5,
+				"big-arrows": true,
+				"big-arrow-step": 10,
+				"slider": true,
+				"slider-step": 5,
+				"input": true
+			}
+		},
+		"t-input": {
+			"type": "title",
+			"name": "Players and input"
 		},
 		"track": {
 			"type": "string",
 			"name": "Track",
 			"description": "Which player's clicks to show in 2-player / dual levels.",
 			"default": "Both players",
-			"one-of": ["Both players", "Player 1 only", "Player 2 only"]
+			"one-of": [
+				"Both players",
+				"Player 1 only",
+				"Player 2 only"
+			]
 		},
 		"platformer-buttons": {
 			"type": "bool",
-			"name": "Count left/right (platformer)",
-			"description": "In platformer levels, also treat holding left or right as clicking.",
+			"name": "Left/right count as clicking",
+			"description": "In PLATFORMER levels only, also treat holding left or right as clicking. Never applies in classic levels.",
 			"default": false
+		},
+		"separate-p2": {
+			"type": "bool",
+			"name": "Separate Player 2 indicator",
+			"description": "Show a second indicator that follows only Player 2 (the main one then follows only Player 1).",
+			"default": false
+		},
+		"p2-position": {
+			"type": "string",
+			"name": "Player 2 position",
+			"description": "Where the Player 2 indicator sits.",
+			"default": "Bottom Left",
+			"one-of": [
+				"Bottom Right",
+				"Bottom Center",
+				"Bottom Left",
+				"Middle Right",
+				"Center",
+				"Middle Left",
+				"Top Right",
+				"Top Center",
+				"Top Left"
+			]
+		},
+		"p2-idle-image": {
+			"type": "file",
+			"name": "Player 2 idle image",
+			"description": "Optional. Falls back to the normal idle image.",
+			"default": "",
+			"control": {
+				"dialog": "open",
+				"filters": [
+					{
+						"files": [
+							"*.png",
+							"*.jpg",
+							"*.jpeg"
+						],
+						"description": "Images"
+					}
+				]
+			}
+		},
+		"p2-pressed-image": {
+			"type": "file",
+			"name": "Player 2 clicking image",
+			"description": "Optional. Falls back to the normal clicking image.",
+			"default": "",
+			"control": {
+				"dialog": "open",
+				"filters": [
+					{
+						"files": [
+							"*.png",
+							"*.jpg",
+							"*.jpeg"
+						],
+						"description": "Images"
+					}
+				]
+			}
 		}
 	}
 }
